@@ -2,20 +2,20 @@
    Co-Helm — Animations
    ============================================ */
 
-@keyframes radarSweep {
+@keyframes compassSweep {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-.animate-radar-sweep {
-  animation: radarSweep 3.2s linear infinite;
+.animate-compass-sweep {
+  animation: compassSweep 3.6s linear infinite;
 }
 
 @keyframes needleDrift {
-  0%, 100% { transform: rotate(-8deg); }
-  50% { transform: rotate(12deg); }
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(8deg); }
 }
 .animate-needle-drift {
-  animation: needleDrift 4s ease-in-out infinite;
+  animation: needleDrift 4.2s ease-in-out infinite;
 }
 
 @keyframes feedSlideUp {
@@ -35,12 +35,12 @@
 }
 
 @keyframes pingSlow {
-  0% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.6); opacity: 0; }
+  0% { transform: scale(1); opacity: 0.7; }
+  60% { transform: scale(1.7); opacity: 0; }
   100% { transform: scale(1); opacity: 0; }
 }
 .ping-slow {
-  animation: pingSlow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: pingSlow 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 @keyframes bubbleIn {
@@ -48,14 +48,22 @@
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 .bubble-in {
-  animation: bubbleIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: bubbleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes thinkBlockOut {
-  0% { opacity: 1; max-height: 200px; }
+  0% { opacity: 1; max-height: 220px; }
   100% { opacity: 0; max-height: 0; }
 }
 .think-block-out {
   animation: thinkBlockOut 0.25s ease-in forwards;
   overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in {
+  animation: fadeIn 0.2s ease-out forwards;
 }

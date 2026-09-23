@@ -4,6 +4,7 @@
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
@@ -16,25 +17,60 @@ body {
   background-color: var(--deep-navy);
   color: var(--off-white);
   overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
 }
 
 ::selection {
-  background-color: rgba(45, 212, 191, 0.2);
-  color: var(--cyan-glow);
+  background-color: rgba(201, 161, 90, 0.25);
+  color: var(--brass-hover);
 }
 
-/* Tactical scrollbar */
+button {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Tactile scrollbar, refined */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--deep-navy);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--bridge-border);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(45, 212, 191, 0.2);
+  background: rgba(201, 161, 90, 0.35);
+}
+
+/* Touch targets */
+button, .touch-target {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Mobile breakpoint helper */
+@media (max-width: 767px) {
+  #commandInput {
+    font-size: 1rem; /* prevents iOS auto-zoom on focus */
+  }
+}
+
+/* Prevent header status pill from wrapping/overlapping on narrow screens */
+#connectionStatus {
+  flex-shrink: 0;
+}
+#connectionStatus span {
+  white-space: nowrap;
 }

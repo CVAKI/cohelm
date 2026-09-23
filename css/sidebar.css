@@ -1,20 +1,93 @@
 /* ============================================
-   Co-Helm — Sidebar
+   Co-Helm — Sidebar / Ship's Log
+   Desktop: pushes content. Mobile: overlay drawer.
    ============================================ */
 
 #sidebar {
-  transition: margin-left 0.3s ease-in-out;
+  transition: margin-left 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 #sidebar.collapsed {
-  margin-left: -18rem; /* matches w-72 */
+  margin-left: -18rem; /* matches w-72, desktop behavior */
 }
 
 .voyage-empty-state {
-  padding: 1.5rem 1rem;
+  padding: 2rem 1rem;
   text-align: center;
   color: var(--telemetry-dim);
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.04em;
+  line-height: 1.7;
+}
+
+.voyage-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  color: var(--telemetry-dim);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.voyage-item:hover {
+  background: rgba(201, 161, 90, 0.08);
+  color: var(--off-white);
+}
+
+.voyage-item.active {
+  background: rgba(201, 161, 90, 0.12);
+  color: var(--brass-hover);
+}
+
+/* Backdrop shown only on mobile while sidebar is open */
+#sidebarBackdrop {
+  display: none;
+}
+
+/* NOTE: same show/hide logic as desktop — no ".collapsed" class = shown,
+   ".collapsed" = hidden. On mobile, add the "collapsed" class to #sidebar
+   by default on page load (in JS) so the drawer starts closed. */
+@media (max-width: 767px) {
+  #sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    width: 82vw;
+    max-width: 300px;
+    margin-left: 0 !important;
+    transform: translateX(0);
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6);
+    padding-top: var(--safe-top);
+    padding-bottom: var(--safe-bottom);
+  }
+
+  #sidebar.collapsed {
+    transform: translateX(-100%);
+  }
+
+  #sidebarBackdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 8, 14, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 40;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  body:has(#sidebar:not(.collapsed)) #sidebarBackdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }

@@ -1,29 +1,45 @@
 /* ============================================
    Co-Helm — Design Tokens
-   Source: Stitch "Co-Helm Navigation Bridge" DESIGN.md
+   Premium ship's-bridge palette: navy, brass, teal
    ============================================ */
 
 :root {
   /* Surfaces */
-  --deep-navy: #0a0e17;
-  --bridge-panel: #0f1422;
-  --bridge-surface: #141c2e;
-  --bridge-border: #1c283f;
+  --deep-navy: #090d16;
+  --bridge-panel: #101a2c;
+  --bridge-surface: #16203570;
+  --bridge-surface-solid: #16203a;
+  --bridge-border: #24304a;
+  --bridge-border-soft: rgba(201, 161, 90, 0.14);
 
   /* Accents */
+  --brass-gold: #c9a15a;
+  --brass-hover: #e2c084;
+  --brass-dim: rgba(201, 161, 90, 0.14);
   --cyan-glow: #2dd4bf;
   --cyan-muted: #14b8a6;
-  --brass-gold: #c9a15a;
-  --brass-hover: #deb870;
+  --cyan-dim: rgba(45, 212, 191, 0.12);
 
   /* Text */
-  --off-white: #e8ecf1;
-  --telemetry-dim: #62728d;
+  --off-white: #edf1f7;
+  --telemetry-dim: #6c7c99;
+  --telemetry-faint: #46536b;
 
   /* Status */
   --status-online: #34d399;
+  --status-error: #f0806f;
 
   /* Fonts */
+  --font-display: 'Fraunces', 'Georgia', serif;
   --font-sans: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+
+  /* Radii */
+  --radius-lg: 1.1rem;
+  --radius-md: 0.75rem;
+  --radius-sm: 0.5rem;
+
+  /* Safe-area aware spacing */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
