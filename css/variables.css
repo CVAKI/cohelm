@@ -1,0 +1,29 @@
+/* ============================================
+   Co-Helm — Design Tokens
+   Source: Stitch "Co-Helm Navigation Bridge" DESIGN.md
+   ============================================ */
+
+:root {
+  /* Surfaces */
+  --deep-navy: #0a0e17;
+  --bridge-panel: #0f1422;
+  --bridge-surface: #141c2e;
+  --bridge-border: #1c283f;
+
+  /* Accents */
+  --cyan-glow: #2dd4bf;
+  --cyan-muted: #14b8a6;
+  --brass-gold: #c9a15a;
+  --brass-hover: #deb870;
+
+  /* Text */
+  --off-white: #e8ecf1;
+  --telemetry-dim: #62728d;
+
+  /* Status */
+  --status-online: #34d399;
+
+  /* Fonts */
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}

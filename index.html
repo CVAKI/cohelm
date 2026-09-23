@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Co-Helm — AI Bridge Console</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Modular stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/backgrounds.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/chat.css">
+  <link rel="stylesheet" href="css/thinking.css">
+  <link rel="stylesheet" href="css/input.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            deepNavy: '#0a0e17',
+            bridgePanel: '#0f1422',
+            bridgeSurface: '#141c2e',
+            bridgeBorder: '#1c283f',
+            cyanGlow: '#2dd4bf',
+            cyanMuted: '#14b8a6',
+            brassGold: '#c9a15a',
+            brassHover: '#deb870',
+            offWhite: '#e8ecf1',
+            telemetryDim: '#62728d'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-screen w-screen overflow-hidden bg-deepNavy text-offWhite font-sans antialiased flex flex-col bathymetric-grid contour-lines selection:bg-cyanGlow/20 selection:text-cyanGlow">
+
+<!-- Top Bridge Console Navigation Bar -->
+<header class="h-14 border-b border-bridgeBorder bg-bridgePanel/90 backdrop-blur-md px-4 flex items-center justify-between z-30 shrink-0 select-none">
+  <div class="flex items-center space-x-3">
+    <button id="sidebarToggleBtn" class="p-1.5 rounded-md hover:bg-bridgeSurface text-telemetryDim hover:text-offWhite border border-transparent hover:border-bridgeBorder transition-colors focus:outline-none" title="Toggle Navigation Ledger">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 6h16M4 12h16M4 18h10"></path>
+      </svg>
+    </button>
+
+    <div class="flex items-center space-x-2.5">
+      <div class="relative w-7 h-7 flex items-center justify-center">
+        <img src="assets/logo.svg" alt="Co-Helm Mark" class="w-7 h-7 object-contain drop-shadow-[0_0_8px_rgba(45,212,191,0.35)]">
+      </div>
+      <div class="flex items-baseline space-x-2">
+        <span class="font-bold tracking-wider text-base uppercase text-offWhite font-mono">CO-HELM</span>
+        <span class="text-[10px] font-mono tracking-widest text-cyanGlow/80 uppercase px-1.5 py-0.5 rounded bg-cyanGlow/10 border border-cyanGlow/20">BRIDGE V1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center space-x-3 text-xs font-mono">
+    <div id="connectionStatus" class="flex items-center space-x-2 px-2.5 py-1 rounded-full bg-bridgeSurface border border-bridgeBorder shrink-0">
+      <div class="relative flex items-center justify-center w-2.5 h-2.5 shrink-0">
+        <span class="absolute w-2.5 h-2.5 rounded-full bg-emerald-400 ping-slow"></span>
+        <span class="relative w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+      </div>
+      <span class="hidden sm:inline whitespace-nowrap text-[11px] text-emerald-400 font-medium tracking-wide">ONLINE // SYNCED</span>
+    </div>
+
+    <button id="fullscreenToggleBtn" class="flex items-center justify-center p-1.5 rounded-md hover:bg-bridgeSurface text-offWhite/60 hover:text-offWhite border border-transparent hover:border-bridgeBorder transition-colors focus:outline-none" title="Toggle Fullscreen">
+      <svg id="fullscreenExpandIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 8V5a1 1 0 0 1 1-1h3M20 8V5a1 1 0 0 1-1-1h-3M4 16v3a1 1 0 0 0 1 1h3M20 16v3a1 1 0 0 1-1 1h-3"></path>
+      </svg>
+      <svg id="fullscreenCollapseIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 4v3a1 1 0 0 1-1 1H5M15 4v3a1 1 0 0 0 1 1h3M9 20v-3a1 1 0 0 0-1-1H5M15 20v-3a1 1 0 0 1 1-1h3"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- Main Bridge Body -->
+<div class="flex-1 flex overflow-hidden relative">
+
+  <!-- LEFT SIDEBAR -->
+  <aside id="sidebar" class="w-72 bg-bridgePanel border-r border-bridgeBorder flex flex-col justify-between z-20 shrink-0">
+    <div class="p-3 border-b border-bridgeBorder space-y-3">
+      <button id="newVoyageBtn" class="w-full group flex items-center justify-between px-3.5 py-2.5 rounded-lg bg-cyanGlow/10 hover:bg-cyanGlow/20 border border-cyanGlow/30 hover:border-cyanGlow/60 text-cyanGlow transition-all duration-200 shadow-[0_0_15px_rgba(45,212,191,0.08)]">
+        <div class="flex items-center space-x-2.5">
+          <svg class="w-4 h-4 text-cyanGlow group-hover:rotate-45 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          <span class="text-xs font-semibold tracking-wider font-mono uppercase text-offWhite">New Voyage</span>
+        </div>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-2 py-3">
+      <div class="voyage-empty-state">
+        No previous voyages logged yet.<br>Start chatting to begin.
+      </div>
+    </div>
+
+    <div class="p-3 border-t border-bridgeBorder bg-deepNavy/50 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="relative w-8 h-8 rounded-full bg-bridgeSurface border border-brassGold/50 flex items-center justify-center font-mono text-xs text-brassGold font-semibold">
+          CP
+          <span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-cyanGlow border border-deepNavy"></span>
+        </div>
+        <div>
+          <p class="text-xs font-medium text-offWhite">Captain</p>
+          <p class="text-[10px] font-mono text-telemetryDim">Co-Helm Bridge</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CHAT AREA -->
+  <main class="flex-1 flex flex-col h-full overflow-hidden relative">
+
+    <!-- Messages Stream -->
+    <div id="messagesContainer" class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6"></div>
+
+    <!-- BOTTOM INPUT BAR -->
+    <div class="p-4 md:p-6 bg-bridgePanel/95 border-t border-bridgeBorder/90 backdrop-blur-md shrink-0 z-20">
+      <div class="max-w-4xl mx-auto space-y-2">
+
+        <div class="input-shell">
+            <textarea
+                    id="commandInput"
+                    rows="2"
+                    placeholder="Chart your course..."
+            ></textarea>
+
+          <div class="input-tray">
+            <div class="flex items-center space-x-1.5">
+                <span class="flex items-center space-x-1 px-2 py-1 rounded-md bg-bridgeSurface/80 border border-bridgeBorder text-[11px] font-mono text-offWhite/80">
+                  <span class="w-1.5 h-1.5 rounded-full bg-cyanGlow"></span>
+                  <span>LLAMA 3.3 70B</span>
+                </span>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <span class="hidden md:inline text-[10px] font-mono text-telemetryDim/70">Press &#8629; to Transmit</span>
+              <button id="sendBtn" title="Transmit to Helm">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="12,2 17,21 12,16 7,21" fill="currentColor"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+<!-- Scripts, in dependency order -->
+<script src="js/config.js"></script>
+<script src="js/thinking.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/fullscreen.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

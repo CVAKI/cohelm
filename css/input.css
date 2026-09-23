@@ -1,0 +1,78 @@
+/* ============================================
+   Co-Helm — Input Bar
+   ============================================ */
+
+.input-shell {
+  position: relative;
+  background: var(--deep-navy);
+  border: 1px solid var(--bridge-border);
+  border-radius: 1rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-shell:focus-within {
+  border-color: rgba(45, 212, 191, 0.7);
+  box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.5);
+}
+
+#commandInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 0.875rem 1rem 3rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--off-white);
+  line-height: 1.6;
+}
+
+#commandInput::placeholder {
+  color: rgba(98, 114, 141, 0.7);
+}
+
+.input-tray {
+  position: absolute;
+  bottom: 0.625rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.input-tray > * {
+  pointer-events: auto;
+}
+
+#sendBtn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.75rem;
+  background: var(--cyan-glow);
+  color: var(--deep-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 0 12px rgba(45, 212, 191, 0.4);
+}
+
+#sendBtn:hover {
+  background: var(--cyan-muted);
+}
+
+#sendBtn:active,
+#sendBtn.pressed {
+  transform: scale(0.9);
+}
+
+#sendBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

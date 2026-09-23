@@ -1,0 +1,40 @@
+/* ============================================
+   Co-Helm — Base / Reset
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--deep-navy);
+  color: var(--off-white);
+  overflow: hidden;
+}
+
+::selection {
+  background-color: rgba(45, 212, 191, 0.2);
+  color: var(--cyan-glow);
+}
+
+/* Tactical scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--deep-navy);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bridge-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(45, 212, 191, 0.2);
+}
